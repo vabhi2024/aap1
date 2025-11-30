@@ -1,0 +1,120 @@
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Mobile & Layout Control -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#000">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Essentials -->
+  <meta name="description" content="Your website short description here. Smart, clean, and fast UI/UX.">
+  <meta name="keywords" content="website, tools, pwa, html css javascript, portfolio">
+  <meta name="author" content="Mr. Abhi Verma">
+
+  <!-- Security & Privacy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' data: https: blob:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src * data: blob:;">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+
+  <!-- Social Share: Open Graph (Facebook, LinkedIn, Instagram) -->
+  <meta property="og:title" content="app1.net">
+  <meta property="og:description" content="app1 is a primium app store">
+  <meta property="og:image" content="https://app1.netlify.app/favicon.png">
+  <meta property="og:url" content="https://app1.netlify.app">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="app1.net">
+  <meta name="twitter:title" content="app1.net">
+  <meta name="twitter:description" content="app1 is a primium app store">
+  <meta name="twitter:image" content="https://app1.netlify.app/favicon.png">
+
+  <!-- PWA Essentials -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+   <!-- Favicon SVG -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+ <title>app1.net</title>
+</head>
+<body>
+  
+   <!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">App market</div>
+
+  <div class="hamburger" onclick="openMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<div class="sidebar" id="sidebarMenu">
+
+ <div class="close-btn" onclick="closeMenu()">×</div>
+
+<a href="#"><i class="fa fa-home"></i> Home</a>
+<a href="#"><i class="fa fa-briefcase"></i> Services</a>
+<a href="#"><i class="fa fa-image"></i> Portfolio</a>
+<a href="#"><i class="fa fa-user"></i> About</a>
+<a href="#"><i class="fa fa-envelope"></i> Contact</a>
+<a href="#"><i class="fa fa-bell"></i> Notifications</a>
+<a href="#"><i class="fa fa-gear"></i> Settings</a>
+<a href="#"><i class="fa fa-star"></i> Favorites</a>
+<a href="#"><i class="fa fa-share"></i> Share</a>
+<a href="#"><i class="fa fa-message"></i> Messages</a>
+<a href="#"><i class="fa fa-lock"></i> Privacy</a>
+<a href="#"><i class="fa fa-circle-question"></i> FAQs</a>
+  </div>
+
+  
+ <img class="live-img" src="live.gif">
+  
+   <!-- SLIDER -->
+  <div class="carousel">
+  <div class="carousel-container">
+      <div class="carousel-slide"><img src="img/01.jpg"></div>
+      <div class="carousel-slide"><img src="img/02.jpg"></div>
+      <div class="carousel-slide"><img src="img/03.jpg"></div>
+      <div class="carousel-slide"><img src="img/04.jpg"></div>
+      <div class="carousel-slide"><img src="img/05.jpg"></div>
+      <div class="carousel-slide"><img src="img/03.jpg"></div>           
+      </div>
+    </div>
+
+  <!-- SEARCH -->
+   <form id="searchForm" class="box" target="_blank">
+  <input id="searchInput" type="search" placeholder="Enter your app name...">
+  <button type="submit">➜</button>
+ </form>
+
+  
+  <!-- FOOTER -->
+  <div class="footer">
+   <p>──── Developed by ────</p>
+    <p>© 2025 - All Rights Reseverd by AD Tech Inc.</p>
+  </div>
+  
+  <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+  
+ <script src="search.js"></script>
+ <script src="slider.js"></script>
+ <script src="nav.js"></script> 
+ <script src="placeholder.js"></script>
+  </body>
+</html>
