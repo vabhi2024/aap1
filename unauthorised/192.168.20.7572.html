@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hacker Control System – ACCESS GRANTED</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#000;
+  color:#0f0;
+  font-family:Courier New,monospace;
+  overflow:hidden;
+}
+canvas{
+  position:fixed;
+  top:0;left:0;
+  z-index:-1;
+}
+.terminal{
+  padding:20px;
+  max-width:1100px;
+  margin:auto;
+}
+.line{margin:4px 0}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  background:#000;
+  border:1px solid red;
+  color:red;
+  padding:8px 12px;
+  animation:blink 1s infinite;
+  z-index:5000;
+  font-size:14px;
+}
+@keyframes blink{50%{opacity:.2}}
+
+.popup .progress-wrap{
+  margin-top:6px;
+  width:120px;
+  height:6px;
+  border:1px solid red;
+}
+.popup .progress{
+  height:100%;
+  width:0%;
+  background:red;
+  animation:load 2s linear forwards;
+}
+@keyframes load{
+  from{width:0%}
+  to{width:100%}
+}
+
+#scanner{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  border:1px solid #0f0;
+  padding:8px;
+  font-size:13px;
+}
+
+#countdown{
+  position:fixed;
+  top:40%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:42px;
+  color:#ff0000;
+  display:none;
+  z-index:9500;
+  text-shadow:0 0 15px red;
+}
+
+#hacked{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:20px;
+  color:red;
+  font-weight:500;
+  letter-spacing:5px;
+  z-index:10000;
+}
+
+/* POWER OFF POPUP */
+#poweroff{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#000;
+  border:2px solid green;
+  padding:25px 40px;
+  color:green;
+  font-size:28px;
+  display:none;
+  z-index:11000;
+  text-align:center;
+  animation:blink .8s infinite;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="terminal" id="terminal"></div>
+<div id="scanner">Scanning...</div>
+<div id="countdown"></div>
+
+<div id="hacked">
+Your Device Managed by Admin<br>
+<span style="font-size:20px;color:#0f0">Admin Control Enabled</span>
+</div>
+
+<div id="poweroff">⚠ ACCESS GRANTED</div>
+
+<!-- SOUNDS -->
+<audio id="beep" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3"></audio>
+<audio id="type" src="https://www.soundjay.com/mechanical/sounds/keyboard-1.mp3"></audio>
+<audio id="ringtone" src="https://www.soundjay.com/phone/sounds/phone-ringing-01.mp3" loop></audio>
+
+<script>
+/******** MATRIX ********/
+const c=document.getElementById('matrix'),
+ctx=c.getContext('2d');
+c.width=innerWidth;
+c.height=innerHeight;
+
+const chars="01ABCDEF#$%";
+const fs=16;
+const drops=Array(Math.floor(c.width/fs)).fill(1);
+
+setInterval(()=>{
+ ctx.fillStyle="rgba(0,0,0,0.05)";
+ ctx.fillRect(0,0,c.width,c.height);
+ ctx.fillStyle="#0f0";
+ ctx.font=fs+"px monospace";
+ drops.forEach((y,i)=>{
+  const t=chars[Math.floor(Math.random()*chars.length)];
+  ctx.fillText(t,i*fs,y*fs);
+  if(y*fs>c.height && Math.random()>0.98) drops[i]=0;
+  drops[i]++;
+ });
+},33);
+
+/******** TERMINAL ********/
+const terminal=document.getElementById('terminal');
+const cmds=[
+ "> Initializing deep scan...",
+ "> Connecting to IP tracker...",
+ "> Target IP: 192.168."+Math.floor(Math.random()*255)+"."+Math.floor(Math.random()*255),
+ "> Location detected via IP...",
+ "> Permissions granted (Chrome)",
+ "> Accessing all device files...",
+ "> Injecting system bug...",
+ "> BUG INSTALLATION: COMPLETED",
+ "> DEVICE ACCESS GRANTED ✔"
+];
+
+let i=0;
+start();
+
+function start(){
+ let interval=setInterval(()=>{
+  if(i<cmds.length){
+   let d=document.createElement('div');
+   d.className='line';
+   terminal.appendChild(d);
+   typeLine(d,cmds[i++]);
+  }else{
+   clearInterval(interval);
+   finalize();
+  }
+ },850);
+
+ randomPopups();
+ fakeScanner();
+}
+
+function typeLine(el,text){
+ let j=0;
+ let t=setInterval(()=>{
+  document.getElementById('type').play();
+  el.textContent+=text[j++]||'';
+  if(j>text.length) clearInterval(t);
+ },35);
+}
+
+/******** POPUPS WITH PROGRESS ********/
+function randomPopups(){
+ const alerts=[
+  "⚠ FILES ACCESSED",
+  "⚠ LOCATION TRACKED",
+  "⚠ PERMISSION OVERRIDE",
+  "⚠ BUG INSTALLED",
+  "⚠ PASSWORD ACCESSED",
+  "⚠ SECURITY ERROR!"
+ ];
+
+ setInterval(()=>{
+  let p=document.createElement('div');
+  p.className='popup';
+  p.style.top=Math.random()*80+'%';
+  p.style.left=Math.random()*80+'%';
+
+  p.innerHTML=`
+    ${alerts[Math.floor(Math.random()*alerts.length)]}
+    <div class="progress-wrap">
+      <div class="progress"></div>
+    </div>
+  `;
+
+  document.body.appendChild(p);
+  document.getElementById('beep').play();
+  setTimeout(()=>p.remove(),2000);
+ },500);
+}
+
+/******** SCANNER ********/
+function fakeScanner(){
+ let dots=0;
+ setInterval(()=>{
+  scanner.textContent="Scanning"+'.'.repeat(dots++%4);
+ },800);
+}
+
+/******** FINAL ********/
+function finalize(){
+ let t=3;
+ countdown.style.display='block';
+ let timer=setInterval(()=>{
+  countdown.textContent="FINALIZING CONTROL IN "+t+"s";
+  t--;
+  if(t<0){
+   clearInterval(timer);
+   countdown.style.display='none';
+   finalAccess();
+  }
+ },1000);
+}
+
+function finalAccess(){
+ hacked.style.display='flex';
+ const ring=document.getElementById('ringtone');
+ ring.play().catch(()=>{});
+ document.documentElement.requestFullscreen?.();
+
+ setTimeout(()=>{
+  document.getElementById('poweroff').style.display='block';
+ },1200);
+
+ setTimeout(()=>{
+  ring.pause();
+  window.location.href="https://www.google.com";
+ },5000);
+}
+</script>
+
+</body>
+</html>
