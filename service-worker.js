@@ -1,9 +1,8 @@
 const CACHE_NAME = "app-cache-v1";
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/script.js"
+  "index.html",
+  "style.css",
+  "script.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -39,7 +38,7 @@ self.addEventListener("fetch", (event) => {
         cached ||
         fetch(event.request).catch(() =>
           // Optional: return fallback page or asset
-          caches.match("/index.html")
+          caches.match("index.html")
         )
       );
     })
